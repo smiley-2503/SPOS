@@ -1,0 +1,354 @@
+//cpp
+#include <stdio.h>
+#include "SampleDLL.h"
+JNIEXPORT int JNICALL Java_SampleDLL_add(JNIEnv *env, jobject javaobj, jint num1, jint num2) 
+{
+    return num1+num2;
+}
+// 
+JNIEXPORT jint JNICALL Java_SampleDLL_add
+  (JNIEnv *, jobject, jint, jint);
+
+  //java
+
+import java.util.Scanner;
+
+public class SampleDLL {
+    static {
+        System.loadLibrary("SampleDLL");
+    }
+
+    public native int add(int num1, int num2);
+
+    public static void main(String args[]) {
+        Scanner scanner = new Scanner(System.in);
+        int num1 = 0, num2 = 0;
+        System.out.println("DLL Example Addition Operation");
+        System.out.print("Enter first number: ");
+        num1 = scanner.nextInt();
+        System.out.print("Enter second number: ");
+        num2 = scanner.nextInt();
+        System.out.println("Result: "+new SampleDLL().add(num1,num2));
+    }
+}
+
+//instruc
+Steps to run the code
+
+1. javac SampleDLL.java
+2. javah -jni SampleDLL
+   if error occurs for "class file not found try some ways to solve it with help of internet or change ur pc "
+3. locate jni.h
+   copy any one path from the list of available paths
+4. locate jni_md.h
+   copy any one path from the list of available paths
+5. gcc -o libSampleDLL.so -shared -fPIE -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux/ -I /usr/lib/jvm/java-8-openjdk-amd64/include/ -shared SampleDLL.c
+6. java -Djava.library.path='/home/admin/Downloads/sahil_DLL/SPOS/DLL' SampleDLL
+
+NOTE in step 5 replace 
+# /usr/lib/jvm/java-8-openjdk-amd64/include/linux/ with the path copied from step 3 
+# /usr/lib/jvm/java-8-openjdk-amd64/include/ with path copied from step 4
+
+NOTE in step 6 replace
+# /home/admin/Downloads/sahil_DLL/SPOS/DLL with the path of ur directory where ur code files r saved
+
+
+//tkinter
+import tkinter as tk
+from PIL import Image, ImageTk
+
+def change_content(page):
+    content_label.config(text=f"This is the {page} page content.")
+
+
+window = tk.Tk()
+window.title("CubeT E-commerce")
+window.geometry("1200x800")  # Adjusted window size
+
+# Create a frame for the header
+header_frame = tk.Frame(window)
+header_frame.pack(side="top", fill="x")
+
+# Logo (cubeT) on the left side
+logo_label = tk.Label(header_frame, text="cubeT", font=("Arial", 20))
+logo_label.pack(side="left", pady=10)
+
+# Navigation buttons aligned to the right side
+menu_frame = tk.Frame(header_frame)
+menu_frame.pack(side="right")
+
+options = ["Home", "Categories", "Profile", "About Us", "Contact", "Cart", "Login"]
+
+for option in options:
+    option_button = tk.Button(menu_frame, text=option, command=lambda o=option: change_content(o), bg="lightblue", fg="black")
+    option_button.pack(side="right", padx=10)
+
+line_frame = tk.Frame(window, height=2, bg="black")
+line_frame.pack(fill="x")
+
+content_label = tk.Label(window, text="Welcome to CubeT E-commerce", font=("Arial", 16))
+content_label.pack(pady=20)
+
+# Create a frame for the side filter panel with a colored outline
+filter_frame = tk.Frame(window, width=250, relief="raised", borderwidth=2, bg="lightgray")
+filter_frame.pack(side="left", fill="y")
+
+filters = ["Price", "Category", "Size", "Color", "Brand"]
+
+for filter_option in filters:
+    filter_check = tk.Checkbutton(filter_frame, text=filter_option, fg="black", bg="lightgray")
+    filter_check.grid()
+
+
+# Apply Filters button below the filter options
+apply_button = tk.Button(filter_frame, text="Apply Filters",bg="green", fg="white", font=("Arial", 12, "bold"))
+apply_button.grid(pady=10)
+
+# Create a frame for the product display
+product_display = tk.Frame(window, bg="white")
+product_display.pack(side="left",fill="both",expand="true")
+
+products = [
+    {"name": "Product 1", "price": "$19.99", "image": "image1.jpeg"},
+    {"name": "Product 2", "price": "$29.99", "image": "image2.jpeg"},
+    {"name": "Product 3", "price": "$39.99", "image": "image3.jpeg"}
+]
+
+for i, product in enumerate(products):
+    image = Image.open(product["image"])
+    image = ImageTk.PhotoImage(image)
+
+    image_label = tk.Label(product_display, image=image)
+    image_label.image = image
+    image_label.grid(row=i, column=0)
+
+    name_label = tk.Label(product_display, text=product["name"], font=("Arial", 12))
+    name_label.grid(row=i, column=1, padx=10)
+
+    price_label = tk.Label(product_display, text=product["price"], font=("Arial", 12))
+    price_label.grid(row=i, column=2, padx=10)
+
+    add_to_cart_button = tk.Button(product_display, text="Add to Cart", bg="orange", fg="white")
+    add_to_cart_button.grid(row=i, column=3, padx=10)
+
+window.mainloop()
+
+
+#python -m venv myenv  # Create a virtual environment
+#source myenv/bin/activate
+#pip install Pillow  # Install packages within the virtual environment
+
+//index
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>cubeT - Electronic E-commerce</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="menu">
+        <div class="logo">
+          <a href="#">cubeT</a>
+        </div>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="sidebar">
+      <h2>Filters</h2>
+      <ul>
+        <li><a href="#">Color</a></li>
+        <li><a href="#">Price</a></li>
+        <li><a href="#">Brand</a></li>
+        <li><a href="#">Weight</a></li>
+      </ul>
+      <button>Apply Filters</button>
+    </div>
+    <div class="content">
+      <div class="img"></div>
+      <div class="center">
+        <div class="title">Create Amazing Website</div>
+        <div class="sub_title">Pure HTML & CSS Only</div>
+        <div class="btns">
+          <button>Learn More</button>
+          <button>Explore</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+//css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  nav {
+    position: fixed;
+    background: #1b1b1b;
+    width: 100%;
+    padding: 10px 0;
+    z-index: 12;
+  }
+  
+  nav .menu {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .menu .logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 35px;
+    font-weight: 600;
+  }
+  
+  .menu ul {
+    display: inline-flex;
+  }
+  
+  .menu ul li {
+    list-style: none;
+    margin-left: 7px;
+  }
+  
+  .menu ul li:first-child {
+    margin-left: 0px;
+  }
+  
+  .menu ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .menu ul li a:hover {
+    background: #fff;
+    color: black;
+  }
+  
+  .img {
+    background: url("img.jpg") no-repeat;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  
+  .img::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  
+  .center {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 20px;
+    text-align: center;
+  }
+  
+  .center .title {
+    color: #fff;
+    font-size: 55px;
+    font-weight: 600;
+  }
+  
+  .center .sub_title {
+    color: #fff;
+    font-size: 52px;
+    font-weight: 600;
+  }
+  
+  .center .btns {
+    margin-top: 20px;
+  }
+  
+  .center .btns button {
+    height: 55px;
+    width: 170px;
+    border-radius: 5px;
+    border: 2px solid white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0 10px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .btns button:first-child:hover {
+    background: white;
+    color: black;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .sidebar button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .content {
+    margin-left: 250px;
+    padding: 20px;
+  }
+  
